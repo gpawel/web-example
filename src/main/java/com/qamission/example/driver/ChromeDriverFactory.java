@@ -24,6 +24,10 @@ public class ChromeDriverFactory {
         return new ChromeDriver(chromeOptions);
     }
 
+    public static ChromeDriver createDefaultChromeDriver() {
+        return new ChromeDriver();
+    }
+
     public static ChromeDriver createChromeDriver(String pathToExec, ChromeOptions chromeOptions) {
         System.setProperty(WEB_DRIVER_CHROME,pathToExec);
         return new ChromeDriver(chromeOptions);
