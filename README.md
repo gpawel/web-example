@@ -17,9 +17,8 @@ It demonstrates a simple but robust stracture of code organization.
 The framework is using Page Object design pattern, Selenium and TestNG frameworks.
 
 ## Tests
-Initially, this framework was build as a assessment for one of my clients.
+Initially, this framework was build as a hiring assessment for one of my clients.
 The below are requirements:
-Below are the steps to automate.
 Below are the steps to automate.
 
 Goto – https://www.loblaws.ca/

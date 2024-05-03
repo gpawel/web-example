@@ -15,15 +15,17 @@ import com.qamission.example.utils.ResourceUtils;
 import java.net.URL;
 
 public class ChromeDriverFactory {
+    private static final String WEB_DRIVER_CHROME = "webdriver.chrome.driver";
+    private ChromeDriverFactory() {}
 
     public static ChromeDriver createChromeDriver(String pathToExec) {
-        System.setProperty("webdriver.chrome.driver",pathToExec);
+        System.setProperty(WEB_DRIVER_CHROME,pathToExec);
         ChromeOptions chromeOptions = getChromeOptions();
         return new ChromeDriver(chromeOptions);
     }
 
     public static ChromeDriver createChromeDriver(String pathToExec, ChromeOptions chromeOptions) {
-        System.setProperty("webdriver.chrome.driver",pathToExec);
+        System.setProperty(WEB_DRIVER_CHROME,pathToExec);
         return new ChromeDriver(chromeOptions);
     }
 
@@ -34,13 +36,16 @@ public class ChromeDriverFactory {
 
     public static WebDriver createRemoteChromeDriver(URL hub) {
         ChromeOptions chromeOptions = getChromeOptions();
-        RemoteWebDriver driver = createRemoteWebdriver(hub, new DesiredCapabilities(chromeOptions));
-        return driver;
+        return createRemoteChromeDriver(hub, chromeOptions);
+    }
+
+    public static WebDriver createRemoteChromeDriver(URL hub, ChromeOptions chromeOptions) {
+        return createRemoteWebdriver(hub, new DesiredCapabilities(chromeOptions));
     }
 
     public static String getChromeDriverPath() {
         String defValue = Config.getConfig().getChromeDriverPath();
-        return ResourceUtils.getSystemProperty("webdriver.chrome.driver",defValue);
+        return ResourceUtils.getSystemProperty(WEB_DRIVER_CHROME,defValue);
     }
 
     public static ChromeOptions getChromeOptions() {
@@ -51,8 +56,7 @@ public class ChromeDriverFactory {
 
     public static RemoteWebDriver createRemoteWebdriver(URL hub, DesiredCapabilities capabilities) {
         addDefaultCapabilitiesTo(capabilities);
-        RemoteWebDriver driver = 	new RemoteWebDriver(hub, capabilities);
-        return driver;
+        return new RemoteWebDriver(hub, capabilities);
     }
 
     public static MutableCapabilities getDefaultMutualCapabilities() {
