@@ -30,15 +30,13 @@ public class Config {
     private long pauseInTest;
 
     private Config() {
-        env = System.getProperty("env");
+        env = System.getProperty("env","");
         if (env == null) {
             System.err.println("env is not provided. Please set -Denv=<folder> what is /resources/env/<folder> ");
             System.exit(-1);
         }
 
-        rootPath = System.getProperty("ROOT");
-
-        if (rootPath == null) rootPath = System.getProperty("user.dir");
+        rootPath = System.getProperty("ROOT",System.getProperty("user.dir"));
         resourcesPath = rootPath+ "/resources";
 
         String defaultProps = resourcesPath + "/etc";
@@ -64,11 +62,6 @@ public class Config {
         return pauseInTest;
     }
 
-    public String getEnv() {
-        return env;
-    }
-
-
     public String getUserName() {
         return userName;
     }
@@ -77,16 +70,12 @@ public class Config {
         return userPassword;
     }
 
-    private void readProperties(String prop_path) {
-        if (prop_path.isEmpty()) {
-            ResourceUtils.loadProperties();
-        } else {
-            ResourceUtils.loadProperties(prop_path);
-        }
+    private void readProperties(String propPath) {
+        ResourceUtils.loadProperties(propPath);
     }
 
     private void setUpSuiteVariables() {
-        chromeDriverPath = resourcesPath+"/drivers"+"/"+System.getProperty("chromeDriverExec");
+        chromeDriverPath = resourcesPath+"/drivers/"+System.getProperty("chromeDriverExec");
         pauseInTest = Long.parseLong(System.getProperty("PAUSE_IN_TEST_MILLS"));
         userName = System.getProperty("pc_user_name");
         userPassword = System.getProperty("pc_user_password");

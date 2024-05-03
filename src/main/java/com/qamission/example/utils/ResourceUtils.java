@@ -12,6 +12,7 @@ import java.util.Properties;
 import java.util.Set;
 
 public class ResourceUtils {
+    protected ResourceUtils() {}
     public final static String FILE_SEPARATOR = System.getProperty("file.separator");
     public static Logger log = LoggerFactory.getLogger(ResourceUtils.class);
 
@@ -32,10 +33,6 @@ public class ResourceUtils {
 
     public static void loadProperties(String path) {
         loadAllProperties(path);
-    }
-
-    public static void loadProperties() {
-        loadAllProperties(System.getProperty("user.dir"));
     }
 
     private static void loadAllProperties(String propertiesPath) {
