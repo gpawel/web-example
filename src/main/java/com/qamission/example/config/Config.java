@@ -2,6 +2,8 @@ package com.qamission.example.config;
 
 import com.qamission.example.utils.ResourceUtils;
 
+import java.util.Objects;
+
 public class Config {
 
     private static Config config = null;
@@ -19,10 +21,9 @@ public class Config {
     }
 
 
-    private String rootPath;
-    private String resourcesPath;
+    private final String rootPath;
+    private final String resourcesPath;
     private String chromeDriverPath;
-    private String env;
     private String userName;
     private String userPassword;
 
@@ -30,10 +31,10 @@ public class Config {
     private long pauseInTest;
 
     private Config() {
-        env = System.getProperty("env","");
-        if (env == null) {
-            System.err.println("env is not provided. Please set -Denv=<folder> what is /resources/env/<folder> ");
-            System.exit(-1);
+        String env = System.getProperty("env");
+        if (Objects.isNull(env)) {
+            env = "";
+            System.err.println("System property 'env' is not provided. Using empty value. It can be set as -Denv=<folder> what is /resources/env/<folder> ");
         }
 
         rootPath = System.getProperty("ROOT",System.getProperty("user.dir"));
